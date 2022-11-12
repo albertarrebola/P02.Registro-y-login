@@ -9,7 +9,7 @@ include 'includes/database.php';
 $usuario = $_SESSION['sessionUser'];
 if(!isset($usuario)){
     header('Location: login.php');
-}else{
+}else {
     // echo $_SESSION['sessionUser'];
     
 }
@@ -21,7 +21,7 @@ $idUsuario = $row['id'];
 //print($idUsuario);
 $consultaHabilidades = "SELECT * FROM habilitats WHERE idUsuari = '$idUsuario'";
 //print($consultaHabilidades);
-$ejecutaHabilidades = $conecta->query($consultaHabilidades);
+$ejecutaHabilidades = $conecta->query($consultaHabilidades); 
 
 
 ?>
@@ -159,7 +159,7 @@ $ejecutaHabilidades = $conecta->query($consultaHabilidades);
                                     </div>
                                 </li>
     
-                                <li class="list_item">
+                                <li class="list_item"> 
                                     <p class="w-50">Catalán</p>
                                     <div class="item_progress mx-2 w-50">
                                         <div class="progress ">
