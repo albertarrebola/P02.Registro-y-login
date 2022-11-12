@@ -13,10 +13,16 @@ if(!isset($usuario)){
     // echo $_SESSION['sessionUser'];
     
 }
-
+ 
 $consulta = "SELECT * FROM usuari WHERE user = '$usuario'";
 $ejecuta = $conecta->query($consulta);
 $row = $ejecuta->fetch_assoc();
+$idUsuario = $row['id'];
+//print($idUsuario);
+$consultaHabilidades = "SELECT * FROM habilitats WHERE idUsuari = '$idUsuario'";
+//print($consultaHabilidades);
+$ejecutaHabilidades = $conecta->query($consultaHabilidades);
+
 
 ?>
 
@@ -85,67 +91,48 @@ $row = $ejecuta->fetch_assoc();
                 <div class="ps-5 pe-5 col-md-5 col-xs-12 my-4 me-5 colizq ">
                     <div class="img_perfil"></div>
                     <div class="box_datos_personales">
-                        <div class="header_box">
+                        <div class="header_box d-flex gap-4 items-center pb-2 justify-between">
                             <p class="Predatory Journals
                             font-weight-bold"><i class="fa-solid fa-angles-right"></i>Datos personales</p>
+                            <div class="botonesAddDeleteSection d-flex gap-2">
+                                <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                            </div>
                         </div>
+                        
                         <div class="lista_datos_personales">
                             <ul>
                                 <li class="list_item"><i class="fa-solid fa-user"></i><?php echo $row['nom'].' '.$row['cognoms']?></li>
-                                <li class="list_item"><i class="fa-solid fa-house"></i>Calle 24 9632, City Bell, La Plata</li>
-                                <li class="list_item"><i class="fa-solid fa-phone"></i>1234 5678</li>
+                                
                                 <li class="list_item"><i class="fa-solid fa-envelope"></i><?php echo $row['email']?></li>
-                                <li class="list_item"><i class="fa-solid fa-calendar"></i>04/01/1995</li>
-                                <li class="list_item"><i class="fa-solid fa-flag"></i>Argentina</li>
-                                <li class="list_item"><i class="fa-solid fa-mobile"></i>934562318</li>
-                                <li class="list_item"><i class="fa-solid fa-person"></i>Soltero</li>
-                                <li class="list_item"><i class="fa-solid fa-car"></i>Clase B</li>
+                                
                             </ul>
                         </div>
                     </div>
     
                     <div class="box_habilidades mt-4">
-                        <div class="header_box">
+                        <div class="header_box d-flex gap-4 items-center pb-2 justify-between">
                             <p class="font-weight- bold"><i class="fa-solid fa-angles-right"></i>Habilidades</p>
+                            <div class="botonesAddDeleteSection d-flex gap-2">
+                                <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                            </div>
                         </div>
                         <div class="lista_habilidades">
                             <ul>
-    
+                            <?php while($rowHabilidades = $ejecutaHabilidades->fetch_assoc()){?>
+
+
                                 <li class="list_item">
-                                    <p class="w-50">Disciplinado</p>
+                                    <p class="w-50"><?php echo $rowHabilidades['habilityName']?></p>
                                     <div class="item_progress mx-2 w-50">
                                         <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 80%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
+                                            <div class="progress-bar gray" role="progressbar" style="width:<?php echo $rowHabilidades['habilityPercent']?>%" aria-valuenow="50" aria-valuemin="0" aria-valuemax="100"></div>
                                         </div>
                                     </div>
                                 </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">Puntual</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 78%" aria-valuenow="45" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">Trabajador</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 75%" aria-valuenow="15" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">Eficiente</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 95%" aria-valuenow="80" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
+                                <?php }; ?>
+                                
     
                                 
                             </ul>
@@ -154,8 +141,12 @@ $row = $ejecuta->fetch_assoc();
     
     
                     <div class="box_idiomas mt-4">
-                        <div class="header_box">
+                        <div class="header_box d-flex gap-4 items-center pb-2 justify-between">
                             <p class="font-weight-bold"><i class="fa-solid fa-angles-right"></i>Idiomas</p>
+                            <div class="botonesAddDeleteSection d-flex gap-2">
+                                <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                            </div>
                         </div>
                         <div class="lista_idiomas">
                             <ul>
@@ -177,30 +168,17 @@ $row = $ejecuta->fetch_assoc();
                                     </div>
                                 </li>
     
-                                <li class="list_item">
-                                    <p class="w-50">Español</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 100%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">Alemán</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 25%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
                             </ul>
                         </div>
                     </div>
     
                     <div class="box_informatica mt-4">
-                        <div class="header_box">
+                        <div class="header_box d-flex gap-4 items-center pb-2 justify-between">
                             <p class="font-weight-bold"><i class="fa-solid fa-angles-right"></i>Informática</p>
+                            <div class="botonesAddDeleteSection d-flex gap-2">
+                                <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                            </div>
                         </div>
                         <div class="lista_idiomas">
                             <ul>
@@ -213,40 +191,19 @@ $row = $ejecuta->fetch_assoc();
                                     </div>
                                 </li>
     
-                                <li class="list_item">
-                                    <p class="w-50">Azure</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 35%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">PHP</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress ">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 65%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
-    
-                                <li class="list_item">
-                                    <p class="w-50">JavaScript</p>
-                                    <div class="item_progress mx-2 w-50">
-                                        <div class="progress gray">
-                                            <div class="progress-bar gray" role="progressbar" style="width: 90%" aria-valuenow="25" aria-valuemin="0" aria-valuemax="100"></div>
-                                        </div>
-                                    </div>
-                                </li>
+                                
                             </ul>
                         </div>
                     </div>
     
     
                     <div class="box_informatica mt-4">
-                        <div class="header_box">
+                        <div class="header_box d-flex gap-4 items-center pb-2 justify-between">
                             <p class="font-weight-bold"><i class="fa-solid fa-angles-right"></i>Competencias</p>
+                            <div class="botonesAddDeleteSection d-flex gap-2">
+                                <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                            </div>
                         </div>
                         <div class="lista_informatica">
                             <ul>
@@ -264,11 +221,16 @@ $row = $ejecuta->fetch_assoc();
                 
                     <div class="ps-5 pe-5 col-md-6 col-xs-12 colder ">
                         <div class="box_perfil">
-                            <div class="header_box">
+                            <div class="header_box d-flex items-center pb-2 justify-between">
                                 <p class="font-weight-bold"><i class="fa-solid fa-angles-right"></i>Perfil</p>
+                                <div class="botonesAddDeleteSection d-flex gap-2">
+                                    <button class="btn btn-success text-[10px] "><i class="text-white fa-solid fa-plus mx-auto"></i></button>
+                                    <button class="items-center btn btn-danger text-[10px]"><i class="text-white fa-solid fa-trash mx-auto"></i></button>
+                                </div>
+                                
                             </div>
                             <div class="parrafo_perfil text-justify">
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, animi. Porro omnis animi vero consequatur aut veritatis, nulla libero, distinctio voluptatem ad harum cum? Debitis eum aut fugiat iste vel?</p>
+                                <!-- <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Ab, animi. Porro omnis animi vero consequatur aut veritatis, nulla libero, distinctio voluptatem ad harum cum? Debitis eum aut fugiat iste vel?</p> -->
                             </div>
                         </div>
     
